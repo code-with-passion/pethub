@@ -120,7 +120,7 @@ do
                     }
                 }
             }
-            
+
             Console.WriteLine("Press the Enter key to continue.");
             readResult = Console.ReadLine();
             break;
@@ -172,7 +172,7 @@ do
             do
             {
                 int petAge;
-                Console.WriteLine("Enter the pet's age or enter ? if unknown");
+                Console.WriteLine("Enter the pet's age or enter (?) if unknown");
                 readResult = Console.ReadLine();
                 if (readResult != null)
                 {
@@ -239,7 +239,7 @@ do
 
             while (anotherPet == "y" && petCount < maxPets)
             {
-                petCount+=1;
+                petCount += 1;
 
                 // check maxPet limit
                 if (petCount < maxPets)
@@ -264,12 +264,44 @@ do
                 Console.WriteLine("Press the Enter key to continue.");
                 readResult = Console.ReadLine();
             }
-
             break;
 
         case "3":
             // Ensure animal ages and physical descriptions are complete
-            Console.WriteLine("Challenge Project - please check back soon to see progress.");
+            bool validEntrys = false;
+
+            for (int i = 0; i < maxPets; i++)
+            {
+                if (ourAnimals[i, 2] == "Age: ?")
+                {
+                    Console.WriteLine($"Enter an age for {ourAnimals[i, 0]}");
+                    do
+                    {
+                        int petAge;
+                        readResult = Console.ReadLine();
+                        if (readResult != null)
+                        {
+                            animalAge = readResult;
+                            if (animalAge != "?")
+                            {
+                                validEntry = int.TryParse(animalAge, out petAge);
+                                break;
+                            }
+                            else
+                                Console.WriteLine("Pet age must not be empty.");
+                        }
+                        else
+                            Console.WriteLine("Pet age must not be empty.");
+                        
+                    } while (validEntrys == false);
+
+                    ourAnimals[i, 2] = "Age: " + animalAge;
+                    ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
+                }
+
+                // if (ourAnimals[i, 4] == "Physical description: ?")
+                //     Console.WriteLine($"Enter a physical description for {ourAnimals[i, 0]} (size, color, breed, gender, weight, housebroken)");
+            }
             Console.WriteLine("Press the Enter key to continue.");
             readResult = Console.ReadLine();
             break;
