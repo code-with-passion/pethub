@@ -332,7 +332,7 @@ do
                             }
                             
                             ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
-                            break;  // Exite the inner loop
+                            break;  // Exit the inner loop
                         }
                     }
                 }
@@ -348,7 +348,76 @@ do
 
         case "4":
             // Ensure animal nicknames and personality descriptions are complete
-            Console.WriteLine("Challenge Project - please check back soon to see progress.");
+            // initialize/reset petcount to track number of current pets 
+            petCount = 0;
+            for (int i = 0; i < maxPets; i++)
+            {
+                if (ourAnimals[i, 0] != "ID #: ")
+                {
+                    // increment by 1
+                    petCount++;
+
+                    if (ourAnimals[i, 3] == "Nickname: " || ourAnimals[i, 3] == "Nickname: tbd" || ourAnimals[i, 5] == "Personality: tbd" || ourAnimals[i, 5] == "Personality: ")
+                    {
+                        while (true)
+                        {
+                            if (ourAnimals[i, 3] == "Nickname: tbd" || ourAnimals[i, 3] == "Nickname: ")
+                            {
+                                Console.WriteLine($"Enter a nickname for the pet {ourAnimals[i,0]}");
+
+                                do
+                                {
+                                    readResult = Console.ReadLine();
+
+                                    if (readResult != null)
+                                    {
+                                        animalNickname = readResult.ToLower();
+                                        if (animalNickname == "" || animalNickname == "tbd")
+                                        {
+                                            Console.WriteLine($"Enter a nickname for the pet {ourAnimals[i, 0]}");
+                                        }
+                                        else
+                                            break;
+                                    }
+                                } while (true);
+                                ourAnimals[i, 3] = "Nickname: " + animalNickname;
+                            }
+                            
+                            // break;  // Exite the inner loop
+
+                            if (ourAnimals[i, 5] == "Personality: tbd" || ourAnimals[i, 5] == "Personality: ")
+                            {
+                                Console.WriteLine($"Enter a personality description for the pet {ourAnimals[i,0]} (likes or dislikes, tricks, energy level)");
+
+                                do
+                                {
+                                    readResult = Console.ReadLine();
+
+                                    if (readResult != null)
+                                    {
+                                        animalPersonalityDescription = readResult.ToLower();
+                                        if (animalPersonalityDescription == "" || animalPersonalityDescription == "tbd")
+                                        {
+                                            Console.WriteLine($"Enter a personality description for the pet {ourAnimals[i, 0]} (likes or dislikes, tricks, energy level)");
+                                        }
+                                        else
+                                            break;
+                                    }
+                                    else
+                                        break;
+                                } while (true);
+                            }
+                            ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
+                            break;  // Exit the inner loop
+                        }
+                    }
+                }
+                else
+                    break; // Exit the loop when encountering the pet with no ID
+            }
+
+            // Console.WriteLine($"Current pet count: {petCount}");
+            Console.WriteLine("All information are complete.\n");
             Console.WriteLine("Press the Enter key to continue.");
             readResult = Console.ReadLine();
             break;
