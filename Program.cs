@@ -7,11 +7,17 @@ string animalAge = "";
 string animalPhysicalDescription = "";
 string animalPersonalityDescription = "";
 string animalNickname = "";
+// bool petsIncomplete = true;
 
 // variables that support data entry
 int maxPets = 8;
 string? readResult;
 string menuSelection = "";
+int petCount = 0;
+string anotherPet = "y";
+bool validEntry = false;
+int petAge = 0;
+
 
 // array used to store runtime data, there is no persisted data
 string[,] ourAnimals = new string[maxPets, 6];
@@ -77,10 +83,8 @@ for (int i = 0; i < maxPets; i++)
 do
 {
     // display the top-level menu options
-
     Console.Clear();
-
-    Console.WriteLine("Welcome to the Contoso PetFriends app. Your main menu options are:");
+    Console.WriteLine("Welcome to the Binoy's Pethub App. Your Main Menu options are:");
     Console.WriteLine(" 1. List all of our current pet information");
     Console.WriteLine(" 2. Add a new animal friend to the ourAnimals array");
     Console.WriteLine(" 3. Ensure animal ages and physical descriptions are complete");
@@ -103,7 +107,7 @@ do
 
     // pause code execution
     readResult = Console.ReadLine();
-
+   
 
     switch (menuSelection)
     {
@@ -127,9 +131,9 @@ do
 
         case "2":
             // Add a new animal friend to the ourAnimals array
-            string anotherPet = "y";
-            int petCount = 0;
-
+            anotherPet = "y";
+            petCount = 0;
+            
             for (int i = 0; i < maxPets; i++)
             {
                 if (ourAnimals[i, 0] != "ID #: ")
@@ -143,102 +147,103 @@ do
                 Console.WriteLine($"We currently have {petCount} pets that need homes. We can manage {(maxPets - petCount)} more.");
             }
 
-            bool validEntry = false;
-
-            // get species (cat or dog) - string animalSpecies is a required field 
-            do
-            {
-                Console.WriteLine("\n\rEnter 'dog' or 'cat' to begin a new entry");
-                readResult = Console.ReadLine();
-                if (readResult != null)
-                {
-                    animalSpecies = readResult.ToLower();
-                    if (animalSpecies != "dog" && animalSpecies != "cat")
-                    {
-                        //Console.WriteLine($"You entered: {animalSpecies}.");
-                        validEntry = false;
-                    }
-                    else
-                    {
-                        validEntry = true;
-                    }
-                }
-            } while (validEntry == false);
-
-            // build the animal the ID number - for example C1, C2, D3 (for Cat 1, Cat 2, Dog 3)
-            animalID = animalSpecies.Substring(0, 1) + (petCount + 1).ToString();
-
-            // get the pet's age. can be ? at initial entry.
-            do
-            {
-                int petAge;
-                Console.WriteLine("Enter the pet's age or enter (?) if unknown");
-                readResult = Console.ReadLine();
-                if (readResult != null)
-                {
-                    animalAge = readResult;
-                    if (animalAge != "?")
-                    {
-                        validEntry = int.TryParse(animalAge, out petAge);
-                    }
-                }
-            } while (validEntry == false);
-
-            // get a description of the pet's physical appearance/condition - animalPhysicalDescription can be blank.
-            do
-            {
-                Console.WriteLine("Enter a physical description of the pet (size, color, gender, weight, housebroken)");
-                readResult = Console.ReadLine();
-                if (readResult != null)
-                {
-                    animalPhysicalDescription = readResult.ToLower();
-                    if (animalPhysicalDescription == "")
-                    {
-                        animalPhysicalDescription = "tbd";
-                    }
-                }
-            } while (animalPhysicalDescription == "");
-
-            // get a description of the pet's personality - animalPersonalityDescription can be blank.
-            do
-            {
-                Console.WriteLine("Enter a description of the pet's personality (likes or dislikes, tricks, energy level)");
-                readResult = Console.ReadLine();
-                if (readResult != null)
-                {
-                    animalPersonalityDescription = readResult.ToLower();
-                    if (animalPersonalityDescription == "")
-                    {
-                        animalPersonalityDescription = "tbd";
-                    }
-                }
-            } while (animalPersonalityDescription == "");
-
-            // get the pet's nickname. animalNickname can be blank.
-            do
-            {
-                Console.WriteLine("Enter a nickname for the pet");
-                readResult = Console.ReadLine();
-                if (readResult != null)
-                {
-                    animalNickname = readResult.ToLower();
-                    if (animalNickname == "")
-                    {
-                        animalNickname = "tbd";
-                    }
-                }
-            } while (animalNickname == "");
-
-            // store the pet information in the ourAnimals array (zero based)
-            ourAnimals[petCount, 0] = "ID #: " + animalID;
-            ourAnimals[petCount, 1] = "Species: " + animalSpecies;
-            ourAnimals[petCount, 2] = "Age: " + animalAge;
-            ourAnimals[petCount, 3] = "Nickname: " + animalNickname;
-            ourAnimals[petCount, 4] = "Physical description: " + animalPhysicalDescription;
-            ourAnimals[petCount, 5] = "Personality: " + animalPersonalityDescription;
-
             while (anotherPet == "y" && petCount < maxPets)
             {
+                // get species (cat or dog) - string animalSpecies is a required field 
+                do
+                {
+                    Console.WriteLine("\nEnter 'dog' or 'cat' to begin a new entry");
+                    readResult = Console.ReadLine();
+                    if (readResult != null)
+                    {
+                        animalSpecies = readResult.ToLower();
+                        if (animalSpecies != "dog" && animalSpecies != "cat")
+                        {
+                            //Console.WriteLine($"You entered: {animalSpecies}.");
+                            validEntry = false;
+                        }
+                        else
+                        {
+                            validEntry = true;
+                        }
+                    }
+                } while (validEntry == false);
+
+                // build the animal the ID number - for example C1, C2, D3 (for Cat 1, Cat 2, Dog 3)
+                animalID = animalSpecies.Substring(0, 1) + (petCount + 1).ToString();
+
+                // get the pet's age. can be ? at initial entry.
+                do
+                {
+                    Console.WriteLine("Enter the pet's age or enter (?) if unknown");
+                    readResult = Console.ReadLine();
+                    if (readResult != null)
+                    {
+                        animalAge = readResult;
+                        if (animalAge != "?")
+                        {
+                            validEntry = int.TryParse(animalAge, out petAge);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                } while (validEntry == false);
+
+                // get a description of the pet's physical appearance/condition - animalPhysicalDescription can be blank.
+                do
+                {
+                    Console.WriteLine("Enter a physical description of the pet (size, color, gender, weight, housebroken)");
+                    readResult = Console.ReadLine();
+                    if (readResult != null)
+                    {
+                        animalPhysicalDescription = readResult.ToLower();
+                        if (animalPhysicalDescription == "" || animalPhysicalDescription == "?")
+                        {
+                            animalPhysicalDescription = "tbd";
+                        }
+                    }
+                } while (animalPhysicalDescription == "");
+
+                // get a description of the pet's personality - animalPersonalityDescription can be blank.
+                do
+                {   
+                    Console.WriteLine("Enter a description of the pet's personality (likes or dislikes, tricks, energy level)");
+                    readResult = Console.ReadLine();
+                    if (readResult != null)
+                    {
+                        animalPersonalityDescription = readResult.ToLower();
+                        if (animalPersonalityDescription == "" || animalPersonalityDescription == "?")
+                        {
+                            animalPersonalityDescription = "tbd";
+                        }
+                    }
+                } while (animalPersonalityDescription == "");
+
+                // get the pet's nickname. animalNickname can be blank.
+                do
+                {
+                    Console.WriteLine("Enter a nickname for the pet");
+                    readResult = Console.ReadLine();
+                    if (readResult != null)
+                    {
+                        animalNickname = readResult.ToLower();
+                        if (animalNickname == "" || animalNickname == "?")
+                        {
+                            animalNickname = "tbd";
+                        }
+                    }
+                } while (animalNickname == "");
+
+                // store the pet information in the ourAnimals array (zero based)
+                ourAnimals[petCount, 0] = "ID #: " + animalID;
+                ourAnimals[petCount, 1] = "Species: " + animalSpecies;
+                ourAnimals[petCount, 2] = "Age: " + animalAge;
+                ourAnimals[petCount, 3] = "Nickname: " + animalNickname;
+                ourAnimals[petCount, 4] = "Physical description: " + animalPhysicalDescription;
+                ourAnimals[petCount, 5] = "Personality: " + animalPersonalityDescription;
+
                 petCount += 1;
 
                 // check maxPet limit
@@ -267,41 +272,76 @@ do
             break;
 
         case "3":
-            // Ensure animal ages and physical descriptions are complete
-            bool validEntrys = false;
 
+        // Ensure animal ages and physical descriptions are complete
+
+        // initialize/reset petcount to track number of current pets 
+        petCount = 0;
             for (int i = 0; i < maxPets; i++)
             {
-                if (ourAnimals[i, 2] == "Age: ?")
+                if (ourAnimals[i, 0] != "ID #: ")
                 {
-                    Console.WriteLine($"Enter an age for {ourAnimals[i, 0]}");
-                    do
+                    // increment by 1
+                    petCount++;
+
+                    if (ourAnimals[i, 2] == "Age: ?" || ourAnimals[i, 4] == "Physical description: " || ourAnimals[i, 4] == "Physical description: tbd")
                     {
-                        int petAge;
-                        readResult = Console.ReadLine();
-                        if (readResult != null)
+                        while (true)
                         {
-                            animalAge = readResult;
-                            if (animalAge != "?")
+                            if (ourAnimals[i, 2] == "Age: ?")
                             {
-                                validEntry = int.TryParse(animalAge, out petAge);
-                                break;
+                                Console.WriteLine($"Enter an age for {ourAnimals[i, 0]}");
+
+                                do
+                                {
+                                    readResult = Console.ReadLine();
+                                    if (readResult != null)
+                                    {
+                                        validEntry = int.TryParse(readResult, out petAge);
+                                        if (!validEntry)
+                                        {
+                                            Console.WriteLine($"Enter an age for {ourAnimals[i, 0]}");
+                                            // Console.WriteLine("Please enter your pet age. Thank you!");
+                                        }
+                                        ourAnimals[i, 2] = "Age: " + petAge;
+                                    }
+
+                                } while (!validEntry);
                             }
-                            else
-                                Console.WriteLine("Pet age must not be empty.");
+
+                            if (ourAnimals[i, 4] == "Physical description: " || ourAnimals[i, 4] == "Physical description: tbd")
+                            {
+                                Console.WriteLine($"Enter a physical description of the pet {ourAnimals[i, 0]} (size, color, gender, weight, housebroken)");
+
+                                do
+                                {
+                                    readResult = Console.ReadLine();
+
+                                    if (readResult != null)
+                                    {
+                                        animalPhysicalDescription = readResult.ToLower();
+                                        if (animalPhysicalDescription == "" || animalPhysicalDescription == "tbd")
+                                        {
+                                            Console.WriteLine($"Enter a physical description of the pet {ourAnimals[i, 0]} (size, color, gender, weight, housebroken)");
+                                        }
+                                        else
+                                            break;
+                                    }
+
+                                } while (true);
+                            }
+                            
+                            ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
+                            break;  // Exite the inner loop
                         }
-                        else
-                            Console.WriteLine("Pet age must not be empty.");
-                        
-                    } while (validEntrys == false);
-
-                    ourAnimals[i, 2] = "Age: " + animalAge;
-                    ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
+                    }
                 }
-
-                // if (ourAnimals[i, 4] == "Physical description: ?")
-                //     Console.WriteLine($"Enter a physical description for {ourAnimals[i, 0]} (size, color, breed, gender, weight, housebroken)");
+                else
+                    break; // Exit the loop when encountering the pet with no ID
             }
+
+            // Console.WriteLine($"Current pet count: {petCount}");
+            Console.WriteLine("All information are complete.\n");
             Console.WriteLine("Press the Enter key to continue.");
             readResult = Console.ReadLine();
             break;
