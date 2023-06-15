@@ -7,7 +7,7 @@ string animalAge = "";
 string animalPhysicalDescription = "";
 string animalPersonalityDescription = "";
 string animalNickname = "";
-bool petsIncomplete = true;
+// bool petsIncomplete = true;
 string suggestedDonation = "";
 
 // variables that support data entry
@@ -18,7 +18,6 @@ int petCount = 0;
 string anotherPet = "y";
 bool validEntry = false;
 int petAge = 0;
-bool validEntry = false;
 decimal decimalDonation = 0.00m;
 
 // array used to store runtime data, there is no persisted data
@@ -142,8 +141,8 @@ do
 
         case "2":
             // Add a new animal friend to the ourAnimals array
-            string anotherPet = "y";
-            int petCount = 0;
+            anotherPet = "y";
+            petCount = 0;
 
             for (int i = 0; i < maxPets; i++)
             {
@@ -184,8 +183,8 @@ do
             // get the pet's age. can be ? at initial entry.
             do
             {
-                int petAge;
-                Console.WriteLine("Enter the pet's age or enter ? if unknown");
+                // int petAge;
+                Console.WriteLine("Enter the pet's age or enter (?) if unknown");
                 readResult = Console.ReadLine();
                 if (readResult != null)
                 {
