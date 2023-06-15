@@ -142,8 +142,8 @@ do
 
         case "2":
             // Add a new animal friend to the ourAnimals array
-            anotherPet = "y";
-            petCount = 0;
+            string anotherPet = "y";
+            int petCount = 0;
 
             for (int i = 0; i < maxPets; i++)
             {
@@ -168,6 +168,7 @@ do
                     animalSpecies = readResult.ToLower();
                     if (animalSpecies != "dog" && animalSpecies != "cat")
                     {
+                        //Console.WriteLine($"You entered: {animalSpecies}.");
                         validEntry = false;
                     }
                     else
@@ -177,13 +178,13 @@ do
                 }
             } while (validEntry == false);
 
-            // build the animal the ID number - for example C1, C2, D3 (for Cat 1, Cat 2, Dog 3)
-            animalID = animalSpecies.Substring(0, 1) + (petCount + 1).ToString();
+                // build the animal the ID number - for example C1, C2, D3 (for Cat 1, Cat 2, Dog 3)
+                animalID = animalSpecies.Substring(0, 1) + (petCount + 1).ToString();
 
             // get the pet's age. can be ? at initial entry.
             do
             {
-                // int petAge;
+                int petAge;
                 Console.WriteLine("Enter the pet's age or enter ? if unknown");
                 readResult = Console.ReadLine();
                 if (readResult != null)
@@ -193,8 +194,6 @@ do
                     {
                         validEntry = int.TryParse(animalAge, out petAge);
                     }
-                    else
-                        break;
                 }
             } while (validEntry == false);
 

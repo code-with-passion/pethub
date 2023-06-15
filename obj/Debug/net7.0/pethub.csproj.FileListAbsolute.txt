@@ -1,0 +1,15 @@
+C:\csharp\pethub\bin\Debug\net7.0\pethub.exe
+C:\csharp\pethub\bin\Debug\net7.0\pethub.deps.json
+C:\csharp\pethub\bin\Debug\net7.0\pethub.runtimeconfig.json
+C:\csharp\pethub\bin\Debug\net7.0\pethub.dll
+C:\csharp\pethub\bin\Debug\net7.0\pethub.pdb
+C:\csharp\pethub\obj\Debug\net7.0\pethub.csproj.AssemblyReference.cache
+C:\csharp\pethub\obj\Debug\net7.0\pethub.GeneratedMSBuildEditorConfig.editorconfig
+C:\csharp\pethub\obj\Debug\net7.0\pethub.AssemblyInfoInputs.cache
+C:\csharp\pethub\obj\Debug\net7.0\pethub.AssemblyInfo.cs
+C:\csharp\pethub\obj\Debug\net7.0\pethub.csproj.CoreCompileInputs.cache
+C:\csharp\pethub\obj\Debug\net7.0\pethub.dll
+C:\csharp\pethub\obj\Debug\net7.0\refint\pethub.dll
+C:\csharp\pethub\obj\Debug\net7.0\pethub.pdb
+C:\csharp\pethub\obj\Debug\net7.0\pethub.genruntimeconfig.cache
+C:\csharp\pethub\obj\Debug\net7.0\ref\pethub.dll
