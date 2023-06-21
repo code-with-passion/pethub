@@ -19,6 +19,7 @@ string anotherPet = "y";
 bool validEntry = false;
 int petAge = 0;
 decimal decimalDonation = 0.00m;
+bool petFound = false;
 
 // array used to store runtime data, there is no persisted data
 string[,] ourAnimals = new string[maxPets, 7];
@@ -113,7 +114,7 @@ do
     }
 
     Console.WriteLine($"You selected menu option {menuSelection}.");
-    Console.WriteLine("Press the ENTER key to continue...");
+    Console.WriteLine("Press the ENTER key to continue.");
 
     // pause code execution
     readResult = Console.ReadLine();
@@ -135,7 +136,7 @@ do
                 }
             }
 
-            Console.WriteLine("Press the ENTER key to continue...");
+            Console.WriteLine("Press the ENTER key to continue.");
             readResult = Console.ReadLine();
             break;
 
@@ -273,7 +274,7 @@ do
             if (petCount >= maxPets)
             {
                 Console.WriteLine("We have reached our limit on the number of pets that we can manage.");
-                Console.WriteLine("Press the ENTER key to continue...");
+                Console.WriteLine("Press the ENTER key to continue.");
                 readResult = Console.ReadLine();
             }
             break;
@@ -345,7 +346,7 @@ do
 
             // Console.WriteLine($"Current pet count: {petCount}");
             Console.WriteLine("All information are complete.\n");
-            Console.WriteLine("Press the ENTER key to continue...");
+            Console.WriteLine("Press the ENTER key to continue.");
             readResult = Console.ReadLine();
             break;
 
@@ -391,7 +392,7 @@ do
             }
 
             Console.WriteLine("All information are complete.\n");
-            Console.WriteLine("Press the ENTER key to continue...");
+            Console.WriteLine("Press the ENTER key to continue.");
             readResult = Console.ReadLine();
             break;
 
@@ -403,11 +404,13 @@ do
                 if (ourAnimals[i, 0] != "ID #: ")
                 {
                     Console.WriteLine();
+                    // Display all pet info
                     for (int j = 0; j < 7; j++)
                     {
                         Console.WriteLine(ourAnimals[i, j]);
                     }
 
+                    // Do loop edit message if not valid entry
                     do
                     {
                         Console.WriteLine();
@@ -416,6 +419,7 @@ do
 
                         if (readResult == "y")
                         {
+                            // Do loop enter age message if not valid entry
                             do
                             {
                                 Console.WriteLine($"Enter an age for our pet {ourAnimals[i, 0]}");
@@ -431,6 +435,7 @@ do
                                     } 
                                     else
                                     {
+                                        // If user entry is (y) display all current pet info with updated pet age
                                         ourAnimals[i, 2] = "Age: " + petAge;
                                         Console.WriteLine();
                                         for (int j = 0; j < 7; j++)
@@ -440,7 +445,6 @@ do
                                         Console.WriteLine("\nPet age has been updated successfully!");
                                         Console.WriteLine("\nPress ENTER key to continue...");
                                         Console.ReadLine();
-                                        break;
                                     }         
                                 }
                             } while (!validEntry);
@@ -449,12 +453,11 @@ do
                         {
                             Console.WriteLine("\nPress ENTER key to continue...");
                             Console.ReadLine();
-                            break;
                         }
                         else
                             continue;
 
-                        break;
+                        break; // Exit edit age loop when valid entry 
                     } while (readResult == "" || readResult != "y" || readResult != "n" || !validEntry);
                      
                 }
@@ -464,21 +467,108 @@ do
 
             // Console.WriteLine($"Current pet count: {petCount}");
             Console.WriteLine("\nAll information are complete.\n");
-            Console.WriteLine("Press the ENTER key to continue...");
+            Console.WriteLine("Press the ENTER key to continue.");
             readResult = Console.ReadLine();
             break;
 
         case "6":
             // Edit an animal’s personality description
-            Console.WriteLine("UNDER CONSTRUCTION - please check back next month to see progress.");
-            Console.WriteLine("Press the ENTER key to continue...");
+            do
+            {
+                Console.Write("Enter pet ID to search: ");
+                readResult = Console.ReadLine();
+            } while (readResult == "");
+
+            do
+            {
+                for (int i = 0; i < maxPets; i++)
+                {
+                    if (ourAnimals[i,0] != "ID #: ")
+                    {
+                        if (ourAnimals[i,0] == $"ID #: {readResult}")
+                        {
+                            petFound = true;
+                            Console.WriteLine();
+                            for (int j = 0; j < 7; j++)
+                            {
+                                Console.WriteLine(ourAnimals[i,j]);
+                            }
+
+                            do
+                            {
+                                Console.Write("\nDo you want to edit this pet's personality description? (y/n): ");
+                                readResult = Console.ReadLine();
+                                
+                                if (readResult != null)
+                                {
+
+                                    if (readResult == "y")
+                                    {
+                                        Console.WriteLine();
+                                        do
+                                        {
+                                            Console.WriteLine("Update the pet's personality description below.");
+                                            readResult = Console.ReadLine();
+                                            
+                                            if (readResult == "")
+                                            {                                            
+                                                validEntry = false;
+                                                
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine();
+                                                ourAnimals[i,5] = $"Personality: {readResult?.ToLower()}";
+                                                for (int k = 0; k < 7; k++)
+                                                {
+                                                    Console.WriteLine(ourAnimals[i,k]);
+                                                }
+                                                Console.WriteLine("\nChanges has been applied to pet personality description.\n");
+                                                validEntry = true;
+                                            }
+                                        } while (!validEntry);
+
+                                    }
+                                    else if (readResult == "n")
+                                    {
+                                        validEntry = true;
+                                        Console.WriteLine("\nNo changes made to the pet's personality description.");
+                                    }
+                                    else    
+                                        validEntry = false;
+                                }
+                                else
+                                    break;
+
+                            } while (!validEntry);
+
+                            break;
+                        }
+                        else
+                            petFound = false;
+                    }
+                    else
+                        break;  
+                }
+
+                if (!petFound)
+                {
+                    Console.WriteLine($"\nNo match found for the pet ID #: {readResult}");
+                }
+
+                break;
+
+            } while (!petFound);
+            
+           
+            Console.WriteLine("\nPress the ENTER key to continue.");
             readResult = Console.ReadLine();
             break;
 
         case "7":
             // Display all cats with a specified characteristic
             Console.WriteLine("UNDER CONSTRUCTION - please check back next month to see progress.");
-            Console.WriteLine("Press the ENTER key to continue...");
+            Console.WriteLine("Press the ENTER key to continue.");
             readResult = Console.ReadLine();
             break;
 
@@ -589,7 +679,7 @@ do
             }
 
             Console.WriteLine("Search complete.");
-            Console.WriteLine("\nPress the ENTER key to continue...");
+            Console.WriteLine("\nPress the ENTER key to continue.");
             readResult = Console.ReadLine();
             break;
 
